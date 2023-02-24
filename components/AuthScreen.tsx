@@ -6,12 +6,13 @@ import {
   getAuth,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { app, auth } from "./firebase";
+import { app, auth } from "../firebase";
 import { useState } from "react";
-// import { useNavigation } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 
-const AuthComponent = () => {
-  // const navigation = useNavigation();
+const AuthScreen = () => {
+  const navigation = useNavigation();
+
   if (app) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -22,7 +23,7 @@ const AuthComponent = () => {
         .then(() => {
           console.log("User signed in successfully");
           setUser(email);
-          // navigation.navigate('Home');
+          navigation.navigate("Home");
         })
         .catch((error) => {
           console.log(error.message);
@@ -41,7 +42,8 @@ const AuthComponent = () => {
     };
 
     return (
-      <View>
+      <View style={styles.container}>
+        <Text style={styles.text}>Table Talk</Text>
         <Text style={styles.text}>Email</Text>
         <TextInput
           style={styles.input}
@@ -98,4 +100,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AuthComponent;
+export default AuthScreen;

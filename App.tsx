@@ -10,18 +10,19 @@ import {
   View,
 } from "react-native";
 import * as React from "react";
-import AuthComponent from "./AuthComponent";
+import AuthScreen from "./components/AuthScreen";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useState, useEffect } from "react";
-// import { NavigationContainer, useNavigation } from "@react-navigation/native";
-// import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import HomeScreen from "./components/HomeScreen";
+import AboutScreen from "./components/About";
 
-// const Stack = createStackNavigator();
+const Stack = createStackNavigator();
 
 export default function App() {
   const [user, setUser] = useState<null>(null);
   const auth = getAuth();
-  // const navigation = useNavigation();
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -37,17 +38,15 @@ export default function App() {
   });
 
   return (
-    // <NavigationContainer>
-    //   <Stack.Navigator initialRouteName="Home">
-    //     {/* <Stack.Screen name="Home" component={HomeScreen} /> */}
-    //     <Stack.Screen name="Login" component={AuthComponent} />
-    //   </Stack.Navigator>
-    // </NavigationContainer>
-    <View style={styles.container}>
-      <Text style={styles.text}>Table Talk</Text>
-      {/* <View style={styles.container}><Text style={styles.text}>Table Talk</Text></View> */}
-      {user ? <View>Table Talk</View> : <AuthComponent />}
-    </View>
+    <NavigationContainer>
+      {/* <Stack.Navigator initialRouteName="Login"> */}
+      <Stack.Navigator>
+        <Stack.Screen name="Login" component={AuthScreen} />
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="About" component={AboutScreen} />
+        {/* <Stack.Screen name="Login" component={AuthScreen} /> */}
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
