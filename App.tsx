@@ -10,13 +10,14 @@ import {
   View,
 } from "react-native";
 import * as React from "react";
-import AuthScreen from "./components/AuthScreen";
+import AuthScreen from "./pages/AuthScreen";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useState, useEffect } from "react";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import HomeScreen from "./components/HomeScreen";
-import AboutScreen from "./components/About";
+import HomeScreen from "./pages/HomeScreen";
+import AboutScreen from "./pages/About";
+import AuthNavigator from "./navigation/AuthNavigator";
 
 const Stack = createStackNavigator();
 
@@ -38,15 +39,15 @@ export default function App() {
   });
 
   return (
-    <NavigationContainer>
-      {/* <Stack.Navigator initialRouteName="Login"> */}
-      <Stack.Navigator>
-        <Stack.Screen name="Login" component={AuthScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="About" component={AboutScreen} />
-        {/* <Stack.Screen name="Login" component={AuthScreen} /> */}
-      </Stack.Navigator>
-    </NavigationContainer>
+     <AuthNavigator />
+    // <NavigationContainer>
+    //   {/* <Stack.Navigator initialRouteName="Login"> */}
+    //   <Stack.Navigator>
+    //     <Stack.Screen name="Login" component={AuthScreen} />
+    //     <Stack.Screen name="Home" component={HomeScreen} />
+    //     <Stack.Screen name="About" component={AboutScreen} />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
   );
 }
 

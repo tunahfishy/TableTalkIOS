@@ -1,16 +1,16 @@
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
+import React, { Component } from "react";
 import { Button, View, Text } from "react-native";
 
-export default function HomeScreen({}) {
+export default function AboutScreen() {
   const navigation = useNavigation();
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Home Screen</Text>
+      <Text>Table Talk</Text>
       <Button
-        title="Go to About"
-        onPress={() => navigation.navigate("About")}
+        title="Go to Home"
+        onPress={() => navigation.navigate("Home")}
       />
     </View>
   );
