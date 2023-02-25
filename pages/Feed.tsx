@@ -1,7 +1,9 @@
 import { collection, getFirestore, getDocs } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
-import { Button, View, Text, StyleSheet } from "react-native";
+import { Button, View, Text, StyleSheet, ScrollView } from "react-native";
 import { app } from "../util/firebase";
+import PostBox from "../components/PostBox";
+import { RefreshControl } from "react-native-gesture-handler";
 
 const db = getFirestore(app);
 export interface Post {
@@ -12,6 +14,12 @@ export interface Post {
 export default function Feed({}) {
   const [posts, setPosts] = useState<Post[]>([]);
   const postsRef = collection(db, "posts");
+  const [refreshing, setRefreshing] = useState<boolean>(false);
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    setRefreshing(false);
+  };
 
   useEffect(() => {
     getDocs(postsRef).then((querySnapshot) => {
@@ -22,56 +30,33 @@ export default function Feed({}) {
       });
       setPosts(postsData);
     });
-  }, []);
+  }, [refreshing]);
 
   return (
-    <View style={styles.container}>
-      {posts.map((post) => (
-        <Text style={styles.title} key={post.id}>
-          {post.data.content}
-        </Text>
-      ))}
-    </View>
+    <ScrollView
+      style={styles.body}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+    >
+      <View style={styles.container}>
+        {posts.map((post) => (
+          <PostBox post={post.data}></PostBox>
+        ))}
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  body: {
     flex: 1,
+    flexDirection: "column",
+    backgroundColor: "#ADD8E6",
+  },
+  container: {
+    marginTop: 30,
     justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#ffe2ff",
-  },
-  title: {
-    marginTop: 20,
-    marginBottom: 30,
-    fontSize: 28,
-    fontWeight: "500",
-    color: "#7f78d2",
-  },
-  button: {
-    flexDirection: "row",
-    borderRadius: 30,
-    marginTop: 10,
-    marginBottom: 10,
-    width: 160,
-    height: 60,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#481380",
-  },
-  buttonText: {
-    color: "#ffe2ff",
-    fontSize: 24,
-    marginRight: 5,
-  },
-  input: {
-    width: 200,
-    borderWidth: 1,
-    borderColor: "#555",
-    borderRadius: 8,
-    textAlign: "center",
-    fontSize: 16,
-    padding: 8,
+    alignItems: "stretch",
   },
 });
