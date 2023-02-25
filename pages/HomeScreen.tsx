@@ -1,26 +1,21 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { createRef, useContext, useState } from "react";
+import React, { createRef, useContext, useEffect, useState } from "react";
 import { Button, View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { auth } from "../util/firebase";
 import { AuthContext } from "../navigation/AuthNavigator";
-import addToCollection from "../util/addToCollection";
+import { collection, getDocs, getFirestore } from "firebase/firestore";
+import { app } from "../util/firebase";
+
+export interface Question {
+  data: string,
+  id: string
+}
 
 export default function HomeScreen({}) {
   const navigation = useNavigation();
   const user = useContext(AuthContext);
-  const [text, setText] = useState<string>("");
-
-  const handleSubmit = () => {
-    // Add a new document in collection "posts"
-    addToCollection("posts", {
-      content: text,
-      author: user?.uid,
-      comments: [],
-      likes: [],
-      // timestamp:
-    });
-  };
+  const [questions, setQuestions] = useState<Question[]>([])
 
   async function logOut() {
     try {
@@ -30,14 +25,27 @@ export default function HomeScreen({}) {
     }
   }
 
+  const db = getFirestore(app);
+  const questionsRef = collection(db, "questions");
+  
+  useEffect(() => {
+    getDocs(questionsRef).then((querySnapshot) => {
+      const questionsData: Question[] = [];
+      querySnapshot.forEach((doc: any) => {
+        console.log(doc.id, " => ", doc.data());
+        questionsData.push({ id: doc.id, data: doc.data() });
+      });
+      setQuestions(questionsData);
+    });
+  }, []);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome {user?.email}!</Text>
       <Button
         title="Question Of The Day"
-        onPress={() => navigation.navigate("Submission")}
+        onPress={() => navigation.navigate("Submission", { question: questions[0]})}
       />
-
       <Button
         title="Go to About"
         onPress={() => navigation.navigate("About")}
