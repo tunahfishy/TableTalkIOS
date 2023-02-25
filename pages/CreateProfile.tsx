@@ -1,20 +1,27 @@
-import * as React from "react";
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../util/firebase";
-import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import React, { Component, useState } from "react";
+import { Button, View, Text, StyleSheet, TextInput } from "react-native";
+import addToCollection from "../util/addToCollection";
+import { auth } from "../util/firebase";
+import { User } from "../util/types";
 
-const AuthScreen = () => {
+export default function CreateProfile({}) {
   const navigation = useNavigation();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
 
-  const handleSignIn = () => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        console.log("User signed in successfully");
+  const handleSignUp = () => {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((user) => {
+        const userObject: User = {
+          name: name,
+          email: email,
+          friends: [],
+        };
+        addToCollection("users/", userObject);
+        navigation.navigate("Home");
       })
       .catch((error) => {
         console.log(error.message);
@@ -38,11 +45,20 @@ const AuthScreen = () => {
         onChangeText={(text) => setPassword(text)}
         secureTextEntry={true}
       />
-      <Button title="Sign In" onPress={handleSignIn} />
-      <Button title="Sign Up" onPress={() => navigation.navigate("Sign Up")} />
+      <Text style={styles.text}>Name</Text>
+      <TextInput
+        style={styles.input}
+        value={name}
+        onChangeText={(name) => setName(name)}
+      />
+      <Button title="Create Profile" onPress={handleSignUp} />
+      <Button
+        title="Sign In"
+        onPress={() => navigation.navigate("Login")}
+      />
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -72,5 +88,3 @@ const styles = StyleSheet.create({
     padding: 8,
   },
 });
-
-export default AuthScreen;

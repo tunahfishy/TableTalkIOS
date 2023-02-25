@@ -9,12 +9,10 @@ export const AuthContext = createContext(null);
 export default function AuthNavigator() {
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState(null);
-  console.log("user:", user);
 
   // Handle user state changes
   function onAuthStateChanged(result) {
     setUser(result);
-    console.log("user state changing");
     if (initializing) setInitializing(false);
   }
 
@@ -22,7 +20,6 @@ export default function AuthNavigator() {
     const authSubscriber = auth.onAuthStateChanged(onAuthStateChanged);
 
     // unsubscribe on unmount
-    console.log("subscriber");
     return authSubscriber;
   }, []);
 
