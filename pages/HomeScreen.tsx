@@ -10,18 +10,17 @@ export default function HomeScreen({}) {
   const navigation = useNavigation();
   const user = useContext(AuthContext);
   const [text, setText] = useState<string>("");
+  console.log(user.uid);
 
   const handleSubmit = () => {
-    // Add a new document in collection "cities"
-    addToCollection("cities/city", {
-      data: text,
-    })
-      .then(() => {
-        console.log("submitted!");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // Add a new document in collection "posts"
+    addToCollection("posts", {
+      content: text,
+      author: user?.uid,
+      comments: [],
+      likes: [],
+      // timestamp:
+    });
   };
 
   async function logOut() {
@@ -46,6 +45,7 @@ export default function HomeScreen({}) {
         title="Go to About"
         onPress={() => navigation.navigate("About")}
       />
+      <Button title="Go to Feed" onPress={() => navigation.navigate("Feed")} />
       <TouchableOpacity style={styles.button} onPress={logOut}>
         <Text style={styles.buttonText}>Sign out 🤷</Text>
       </TouchableOpacity>
