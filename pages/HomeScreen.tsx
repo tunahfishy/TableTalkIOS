@@ -10,7 +10,6 @@ export default function HomeScreen({}) {
   const navigation = useNavigation();
   const user = useContext(AuthContext);
   const [text, setText] = useState<string>("");
-  console.log(user.uid);
 
   const handleSubmit = () => {
     // Add a new document in collection "posts"
@@ -58,14 +57,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#ffe2ff",
+    backgroundColor: "#ADD8E6",
   },
   title: {
     marginTop: 20,
     marginBottom: 30,
     fontSize: 28,
     fontWeight: "500",
-    color: "#7f78d2",
+    color: "black",
   },
   button: {
     flexDirection: "row",
@@ -73,18 +72,18 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     width: 160,
-    height: 60,
+    height: 45,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#481380",
+    backgroundColor: "black",
   },
   buttonText: {
-    color: "#ffe2ff",
-    fontSize: 24,
-    marginRight: 5,
+    color: "white",
+    fontSize: 18,
   },
   input: {
     width: 200,
+    height: 70,
     borderWidth: 1,
     borderColor: "#555",
     borderRadius: 8,

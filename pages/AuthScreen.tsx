@@ -66,13 +66,13 @@ const AuthScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#ADD8E6",
     alignItems: "center",
     justifyContent: "center",
   },
   body: {
     flex: 1,
-    backgroundColor: "#2353",
+    backgroundColor: "#ADD8E6",
     flexDirection: "column",
   },
   text: {
