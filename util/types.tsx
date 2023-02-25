@@ -6,11 +6,7 @@ export interface Question {
 export interface User {
   name: string;
   email: string;
-}
-
-export interface Post {
-  id: any;
-  data: any;
+  friends: User[];
 }
 
 export interface PostObject {

@@ -6,7 +6,7 @@ import { Question, User } from "../util/types";
 
 export default function PostBox({ post }) {
   const navigation = useNavigation();
-  console.log(post);
+  // console.log(post);
   const [question, setQuestion] = useState<Question>();
   const [author, setAuthor] = useState<User>();
 
@@ -15,13 +15,11 @@ export default function PostBox({ post }) {
     questionInfo.then((questionInfo) => {
       setQuestion(questionInfo.data() as Question);
     });
-    console.log("here:", question);
 
     const authorInfo = fetchFromCollection(post.author.path);
     authorInfo.then((authorInfo) => {
       setAuthor(authorInfo.data() as User);
     });
-    console.log("here:", author);
   }, []);
 
   return (
