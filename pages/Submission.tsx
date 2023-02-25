@@ -7,7 +7,7 @@ import addToCollection from "../util/addToCollection";
 export default function SubmissionScreen({ route }) {
   const navigation = useNavigation();
   const user = useContext(AuthContext);
-    const { questions } = route.params;
+    // const { questions } = route.params;
   const [text, setText] = useState<string>("");
 
   const handleSubmit = () => {

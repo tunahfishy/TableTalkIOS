@@ -33,12 +33,10 @@ export default function HomeScreen({}) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome {user?.email}!</Text>
-      <TextInput
-        style={styles.input}
-        value={text}
-        onChangeText={(text) => setText(text)}
+      <Button
+        title="Question Of The Day"
+        onPress={() => navigation.navigate("Submission")}
       />
-      <Button title="Submit" onPress={handleSubmit} />
 
       <Button
         title="Go to About"
