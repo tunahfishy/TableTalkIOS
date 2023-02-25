@@ -1,54 +1,12 @@
-import { StatusBar } from "expo-status-bar";
-import {
-  Button,
-  FlatList,
-  RefreshControl,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { StyleSheet } from "react-native";
 import * as React from "react";
-import AuthScreen from "./pages/AuthScreen";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { useState, useEffect } from "react";
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import HomeScreen from "./pages/HomeScreen";
-import AboutScreen from "./pages/About";
 import AuthNavigator from "./navigation/AuthNavigator";
 
 const Stack = createStackNavigator();
 
 export default function App() {
-  const [user, setUser] = useState<null>(null);
-  const auth = getAuth();
-
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-      // navigation.navigate("Main");
-      const uid = user.uid;
-      // ...
-    } else {
-      // User is signed out
-      // navigation.navigate("Login");
-    }
-  });
-
-  return (
-     <AuthNavigator />
-    // <NavigationContainer>
-    //   {/* <Stack.Navigator initialRouteName="Login"> */}
-    //   <Stack.Navigator>
-    //     <Stack.Screen name="Login" component={AuthScreen} />
-    //     <Stack.Screen name="Home" component={HomeScreen} />
-    //     <Stack.Screen name="About" component={AboutScreen} />
-    //   </Stack.Navigator>
-    // </NavigationContainer>
-  );
+  return <AuthNavigator />;
 }
 
 const styles = StyleSheet.create({
