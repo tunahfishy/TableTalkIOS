@@ -6,11 +6,7 @@ import { auth } from "../util/firebase";
 import { AuthContext } from "../navigation/AuthNavigator";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 import { app } from "../util/firebase";
-
-export interface Question {
-  data: string,
-  id: string
-}
+import { Question } from "../util/types";
 
 export default function HomeScreen({}) {
   const navigation = useNavigation();

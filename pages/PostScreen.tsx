@@ -3,26 +3,17 @@ import { doc, DocumentSnapshot, getDoc } from "firebase/firestore";
 import React, { Component, useEffect, useState } from "react";
 import { Button, View, Text, StyleSheet } from "react-native";
 import fetchFromCollection from "../util/fetchFromCollection";
-import { Question } from "./HomeScreen";
+import { Question, User } from "../util/types";
 
 export default function PostScreen({ route }) {
   const navigation = useNavigation();
-  const { post } = route.params;
-  const [question, setQuestion] = useState<Question>();
-
-  useEffect(() => {
-    console.log(post.question.path);
-    const questionInfo = fetchFromCollection(post.question.path);
-    questionInfo.then((question) => {
-      setQuestion(question.data() as Question);
-      console.log(question);
-    });
-  }, []);
+  const { post, question, author } = route.params;
 
   return (
     <View style={styles.container}>
       <Text style={styles.question}>{question?.text}</Text>
       <Text style={styles.text}>{post.content}</Text>
+      <Text style={styles.text}>{author?.name}</Text>
     </View>
   );
 }
