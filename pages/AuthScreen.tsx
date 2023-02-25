@@ -3,30 +3,24 @@ import * as React from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
 import {
   createUserWithEmailAndPassword,
-  getAuth,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { app, auth } from "../firebase";
+import { app, auth } from "../util/firebase";
 import { useState } from "react";
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
 
 const AuthScreen = () => {
-  const navigation = useNavigation();
-
   if (app) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [user, setUser] = useState("");
 
     const handleSignIn = () => {
       signInWithEmailAndPassword(auth, email, password)
         .then(() => {
           console.log("User signed in successfully");
-          setUser(email);
-          navigation.navigate("Home");
         })
         .catch((error) => {
           console.log(error.message);
+          alert(error.message);
         });
     };
 
@@ -34,10 +28,10 @@ const AuthScreen = () => {
       createUserWithEmailAndPassword(auth, email, password)
         .then(() => {
           console.log("User account created successfully");
-          setUser(email);
         })
         .catch((error) => {
           console.log(error.message);
+          alert(error.message);
         });
     };
 
@@ -59,7 +53,6 @@ const AuthScreen = () => {
         />
         <Button title="Sign In" onPress={handleSignIn} />
         <Button title="Sign Up" onPress={handleSignUp} />
-        <Text>{user ? "Welcome, " + user : ""}</Text>
       </View>
     );
   } else {
