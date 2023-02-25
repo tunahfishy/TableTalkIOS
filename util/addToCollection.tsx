@@ -16,6 +16,7 @@ export interface PostObject {
   author: string;
   comments: string[];
   likes: string[];
+  question: string
   // timestamp:
 }
 

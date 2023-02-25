@@ -17,11 +17,13 @@ export default function Feed({}) {
   const [refreshing, setRefreshing] = useState<boolean>(false);
 
   const onRefresh = () => {
+    console.log("refreshing!");
     setRefreshing(true);
+    getPosts()
     setRefreshing(false);
   };
 
-  useEffect(() => {
+  const getPosts = () => {
     getDocs(postsRef).then((querySnapshot) => {
       const postsData: Post[] = [];
       querySnapshot.forEach((doc: any) => {
@@ -30,7 +32,12 @@ export default function Feed({}) {
       });
       setPosts(postsData);
     });
-  }, [refreshing]);
+  };
+
+  useEffect(() => {
+    console.log("refreshing");
+    getPosts();
+  }, []);
 
   return (
     <ScrollView

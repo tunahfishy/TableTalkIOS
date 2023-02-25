@@ -7,8 +7,9 @@ import addToCollection from "../util/addToCollection";
 export default function SubmissionScreen({ route }) {
   const navigation = useNavigation();
   const user = useContext(AuthContext);
-    // const { questions } = route.params;
+  const { question } = route.params;
   const [text, setText] = useState<string>("");
+  console.log('id:', question.id)
 
   const handleSubmit = () => {
     // Add a new document in collection "posts"
@@ -17,6 +18,7 @@ export default function SubmissionScreen({ route }) {
       author: user?.uid,
       comments: [],
       likes: [],
+      question: question.id
       // timestamp:
     });
     navigation.navigate("Feed");
@@ -24,7 +26,7 @@ export default function SubmissionScreen({ route }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Question</Text>
+      <Text style={styles.text}>Question: {question.data.text}</Text>
       <TextInput
         style={styles.input}
         value={text}
