@@ -1,24 +1,28 @@
 import { useNavigation } from "@react-navigation/native";
+import { collection, doc, getFirestore } from "firebase/firestore";
 import React, { Component, useContext, useState } from "react";
 import { Button, View, Text, StyleSheet, TextInput } from "react-native";
 import { AuthContext } from "../navigation/AuthNavigator";
 import addToCollection from "../util/addToCollection";
+import { app } from "../util/firebase";
+
+const db = getFirestore(app);
 
 export default function SubmissionScreen({ route }) {
   const navigation = useNavigation();
   const user = useContext(AuthContext);
   const { question } = route.params;
   const [text, setText] = useState<string>("");
-  console.log('id:', question.id)
 
   const handleSubmit = () => {
     // Add a new document in collection "posts"
+    const authorRef = doc(db, "user/" + user?.uid);
     addToCollection("posts", {
       content: text,
-      author: user?.uid,
+      author: authorRef,
       comments: [],
       likes: [],
-      question: question.id
+      question: question.id,
       // timestamp:
     });
     navigation.navigate("Feed");

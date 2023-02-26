@@ -4,9 +4,8 @@ import { Text, StyleSheet, TouchableOpacity } from "react-native";
 import fetchFromCollection from "../util/fetchFromCollection";
 import { Question, User } from "../util/types";
 
-export default function PostBox({ post }) {
+export default function PostBox({ post, postId }) {
   const navigation = useNavigation();
-  // console.log(post);
   const [question, setQuestion] = useState<Question>();
   const [author, setAuthor] = useState<User>();
 
@@ -28,6 +27,7 @@ export default function PostBox({ post }) {
       onPress={() => {
         navigation.navigate("Post", {
           post: post,
+          postId: postId,
           question: question,
           author: author,
         });

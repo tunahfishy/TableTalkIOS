@@ -37,7 +37,7 @@ export default function HomeScreen({}) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Welcome {user?.email}!</Text>
+      <Text style={styles.title}>Welcome to the table!</Text>
       <Button
         title="Question Of The Day"
         onPress={() => navigation.navigate("Submission", { question: questions[0]})}
