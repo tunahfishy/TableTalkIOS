@@ -16,7 +16,7 @@ export default function SubmissionScreen({ route }) {
 
   const handleSubmit = () => {
     // Add a new document in collection "posts"
-    const authorRef = doc(db, "user/" + user?.uid);
+    const authorRef = doc(db, "users/" + user?.uid);
     addToCollection("posts", {
       content: text,
       author: authorRef,

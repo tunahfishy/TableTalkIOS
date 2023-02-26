@@ -3,6 +3,7 @@ import {
   doc,
   DocumentData,
   DocumentReference,
+  getDoc,
   getDocs,
   getFirestore,
 } from "firebase/firestore";
@@ -12,14 +13,19 @@ import { ScrollView } from "react-native-gesture-handler";
 import { CommentModal } from "../components/Modal";
 import fetchFromCollection from "../util/fetchFromCollection";
 import { app } from "../util/firebase";
-import { CommentObject } from "../util/types";
+import { CommentObject, User } from "../util/types";
 
 const db = getFirestore(app);
+
+export interface CommentDataObject {
+  data: CommentObject;
+  author: User;
+}
 
 export default function PostScreen({ route }) {
   const { post, postId, question, author } = route.params;
   const commentsRef = collection(db, "comments");
-  const [comments, setComments] = useState<CommentObject[]>([]);
+  const [comments, setComments] = useState<CommentDataObject[]>([]);
   const [refreshing, setRefreshing] = useState<boolean>(false);
 
   const onRefresh = () => {
@@ -31,11 +37,11 @@ export default function PostScreen({ route }) {
 
   const getComments = () => {
     getDocs(commentsRef).then((querySnapshot) => {
-      const commentsData: CommentObject[] = [];
+      const commentsData: CommentDataObject[] = [];
       querySnapshot.forEach((doc: any) => {
         const data: CommentObject = doc.data();
         if (data.post.id === postId) {
-          commentsData.push(data);
+          commentsData.push({ data, author });
         }
       });
       setComments(commentsData);
@@ -58,11 +64,11 @@ export default function PostScreen({ route }) {
         <Text style={styles.text}>{post.content}</Text>
         <Text style={styles.text}>{author?.name}</Text>
       </View>
-      {comments.map((comment) => {
+      {comments.map((commentObject) => {
         return (
           <View style={styles.comments}>
-            <Text>{comment.text}</Text>
-            {/* <Text>{comment.author}</Text> */}
+            <Text>{commentObject.data.text}</Text>
+            <Text>{commentObject.author.name}</Text>
           </View>
         );
       })}
