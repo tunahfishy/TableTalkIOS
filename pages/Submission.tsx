@@ -22,7 +22,7 @@ export default function SubmissionScreen({ route }) {
       author: authorRef,
       comments: [],
       likes: [],
-      question: question.id,
+      question: doc(db, "question/" + question.id),
       // timestamp:
     });
     navigation.navigate("Feed");
