@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "pink",
+    backgroundColor: "#ADD8E6",
     borderWidth: 2,
     padding: 16,
     minHeight: 100,
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   input: {
-    width: 200,
+    width: 300,
     height: 300,
     borderWidth: 1,
     borderColor: "#555",

@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: "#ADD8E6",
     borderWidth: 1,
     padding: 26,
     minHeight: 100,
