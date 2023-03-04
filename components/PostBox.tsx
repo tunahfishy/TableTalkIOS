@@ -10,12 +10,12 @@ export default function PostBox({ post, postId }) {
   const [author, setAuthor] = useState<User>();
 
   useEffect(() => {
-    const questionInfo = fetchFromCollection(post.question.path);
+    const questionInfo = fetchFromCollection("questions/" + post.question.path);
     questionInfo.then((questionInfo) => {
       setQuestion(questionInfo.data() as Question);
     });
 
-    const authorInfo = fetchFromCollection(post.author.path);
+    const authorInfo = fetchFromCollection("users/" + post.author);
     authorInfo.then((authorInfo) => {
       setAuthor(authorInfo.data() as User);
     });

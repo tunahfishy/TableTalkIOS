@@ -61,7 +61,6 @@ export default function Feed({}) {
       });
     });
   };
-  // }
 
   useEffect(() => {
     console.log("refreshing");
