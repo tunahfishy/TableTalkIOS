@@ -21,42 +21,23 @@ export const CommentModal = ({ post, postId }) => {
   const user = useContext(AuthContext);
   const [modalVisible, setModalVisible] = useState(false);
   const [text, setText] = useState<string>("");
-  const authorRef = doc(db, "user/" + user?.uid);
-
-  console.log("postID:", postId);
-  const postRef = doc(db, "posts/" + postId);
-  console.log(postRef);
 
   const handleSubmit = () => {
-    console.log("comment!", text);
     // Add a new document in collection "comments"
     if (user) {
       console.log("user:", user);
       const comment: CommentObject = {
-        author: authorRef,
-        post: postRef,
+        author: user?.uid,
+        post: postId,
         text: text,
       };
       addToCollection("comments", comment);
-      // TODO add comment to post object as well
-      //   postRef.set({
-      //     field1: 'new_value'
-      //   }, { merge: true }).then(() => {
-      //     console.log('Document successfully updated!');
-      //   }).catch((error) => {
-      //     console.error('Error updating document:', error);
-      //   });
       setModalVisible(false);
     }
   };
 
   return (
     <View style={styles.centeredView}>
-      {/* <PanGestureHandler
-    // style={{flex: 1}}
-  onSwipeUp={ () => setModalVisible(true) }
-  onSwipeDown={ () => setModalVisible(false) }
-  /> */}
       <Modal
         animationType="slide"
         transparent={true}
@@ -90,7 +71,6 @@ export const CommentModal = ({ post, postId }) => {
       >
         <Text style={styles.textStyle}>Show Modal</Text>
       </Pressable>
-      {/* </PanGestureHandler> */}
     </View>
   );
 };

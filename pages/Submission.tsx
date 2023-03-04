@@ -16,13 +16,12 @@ export default function SubmissionScreen({ route }) {
 
   const handleSubmit = () => {
     // Add a new document in collection "posts"
-    const authorRef = doc(db, "users/" + user?.uid);
     addToCollection("posts", {
       content: text,
-      author: authorRef,
+      author: user?.uid,
       comments: [],
       likes: [],
-      question: doc(db, "question/" + question.id),
+      question: question.id,
       // timestamp:
     });
     navigation.navigate("Feed");

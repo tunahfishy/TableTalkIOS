@@ -8,21 +8,20 @@ export interface Question {
 export interface User {
   name: string;
   email: string;
-  friends: User[];
+  friends: string[];
 }
 
 export interface PostObject {
   content: string;
-  author: DocumentReference;
+  author: string;
   comments: string[];
   likes: string[];
-  question: DocumentReference;
-  // id: string;
+  question: string;
   // timestamp:
 }
 
 export interface CommentObject {
-  post: DocumentReference;
+  post: string;
   text: string;
-  author: DocumentReference;
+  author: string;
 }

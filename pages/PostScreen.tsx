@@ -6,6 +6,8 @@ import {
   getDoc,
   getDocs,
   getFirestore,
+  query,
+  where,
 } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, RefreshControl } from "react-native";
@@ -29,20 +31,18 @@ export default function PostScreen({ route }) {
   const [refreshing, setRefreshing] = useState<boolean>(false);
 
   const onRefresh = () => {
-    console.log("refreshing!");
     setRefreshing(true);
     getComments();
     setRefreshing(false);
   };
 
   const getComments = () => {
-    getDocs(commentsRef).then((querySnapshot) => {
+    const commentsQuery = query(commentsRef, where("post", "==", postId));
+    getDocs(commentsQuery).then((commentsSnapshot) => {
       const commentsData: CommentDataObject[] = [];
-      querySnapshot.forEach((doc: any) => {
+      commentsSnapshot.forEach((doc: any) => {
         const data: CommentObject = doc.data();
-        if (data.post.id === postId) {
-          commentsData.push({ data, author });
-        }
+        commentsData.push({ data, author });
       });
       setComments(commentsData);
     });
