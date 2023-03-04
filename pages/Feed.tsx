@@ -5,7 +5,7 @@ import {
   DocumentReference,
 } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
-import { Button, View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { app } from "../util/firebase";
 import PostBox from "../components/PostBox";
 import { RefreshControl } from "react-native-gesture-handler";
@@ -46,14 +46,13 @@ export default function Feed({}) {
           const friendsData: DocumentReference[] = [];
 
           userFriends?.forEach((friend) => {
-            friendsData.push(friend.id);
+            friendsData.push(friend);
           });
 
           const newPosts = postsData.filter((post) => {
-            console.log(post.post.author, userId)
             return (
               post.post.author == userId ||
-              friendsData.indexOf(post.post.author.id) !== -1
+              friendsData.indexOf(post.post.author) !== -1
             );
           });
           setPosts(newPosts);
@@ -63,9 +62,7 @@ export default function Feed({}) {
   };
 
   useEffect(() => {
-    console.log("refreshing");
     getPosts();
-    console.log(posts);
   }, []);
 
   return (

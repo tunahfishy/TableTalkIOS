@@ -1,4 +1,4 @@
-import { DocumentReference } from "firebase/firestore";
+import { DocumentReference, Timestamp } from "firebase/firestore";
 
 export interface Question {
   data: string;
@@ -17,7 +17,7 @@ export interface PostObject {
   comments: string[];
   likes: string[];
   question: string;
-  // timestamp:
+  // timestamp: Timestamp;
 }
 
 export interface CommentObject {

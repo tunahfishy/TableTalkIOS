@@ -55,6 +55,7 @@ export default function PostScreen({ route }) {
 
   return (
     <ScrollView
+      style={styles.body}
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
@@ -64,9 +65,9 @@ export default function PostScreen({ route }) {
         <Text style={styles.text}>{post.content}</Text>
         <Text style={styles.text}>{author?.name}</Text>
       </View>
-      {comments.map((commentObject) => {
+      {comments.map((commentObject, key) => {
         return (
-          <View style={styles.comments}>
+          <View style={styles.comments} key={key}>
             <Text>{commentObject.data.text}</Text>
             <Text>{commentObject.author.name}</Text>
           </View>
@@ -78,15 +79,20 @@ export default function PostScreen({ route }) {
 }
 
 const styles = StyleSheet.create({
+  body: {
+    flex: 1,
+    flexDirection: "column",
+    backgroundColor: "#ADD8E6",
+  },
   container: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#ADD8E6",
     borderWidth: 1,
     padding: 26,
     minHeight: 100,
     margin: 16,
     borderRadius: 16,
+    backgroundColor: "white",
   },
   question: {
     fontStyle: "italic",

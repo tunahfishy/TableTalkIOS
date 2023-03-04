@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import { collection, doc, getFirestore } from "firebase/firestore";
+import { serverTimestamp, getFirestore } from "firebase/firestore";
 import React, { Component, useContext, useState } from "react";
 import { Button, View, Text, StyleSheet, TextInput } from "react-native";
 import { AuthContext } from "../navigation/AuthNavigator";
@@ -17,7 +17,6 @@ export default function SubmissionScreen({ route }) {
 
   const handleSubmit = () => {
     getUser(user).then((userData) => {
-      console.log(userData)
       // Add a new document in collection "posts"
       addToCollection("posts", {
         content: text,
@@ -25,7 +24,7 @@ export default function SubmissionScreen({ route }) {
         comments: [],
         likes: [],
         question: question.id,
-        // timestamp:
+        // timestamp: serverTimestamp()
       });
       navigation.navigate("Feed");
     });

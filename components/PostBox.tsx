@@ -33,7 +33,6 @@ export default function PostBox({ post, postId }) {
         });
       }}
     >
-      {/* <Text style={styles.text}>{question?.text}</Text> */}
       <Text style={styles.text}>{post.content}</Text>
       <Text style={styles.author}>{author?.name}</Text>
     </TouchableOpacity>
@@ -47,7 +46,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderWidth: 2,
     padding: 16,
-    minHeight: 100,
+    minHeight: 125,
     margin: 16,
     borderRadius: 16,
   },

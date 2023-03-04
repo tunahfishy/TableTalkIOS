@@ -28,7 +28,6 @@ export default function HomeScreen({}) {
     getDocs(questionsRef).then((querySnapshot) => {
       const questionsData: Question[] = [];
       querySnapshot.forEach((doc: any) => {
-        console.log(doc.id, " => ", doc.data());
         questionsData.push({ id: doc.id, data: doc.data() });
       });
       setQuestions(questionsData);
