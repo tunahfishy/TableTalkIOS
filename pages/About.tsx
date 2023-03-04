@@ -8,9 +8,10 @@ export default function AboutScreen() {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text>Table Talk</Text>
+      <Button title="Go to Home" onPress={() => navigation.navigate("Home")} />
       <Button
-        title="Go to Home"
-        onPress={() => navigation.navigate("Home")}
+        title="Go to Friends"
+        onPress={() => navigation.navigate("Friends")}
       />
     </View>
   );
