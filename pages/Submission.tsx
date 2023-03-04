@@ -5,6 +5,7 @@ import { Button, View, Text, StyleSheet, TextInput } from "react-native";
 import { AuthContext } from "../navigation/AuthNavigator";
 import addToCollection from "../util/addToCollection";
 import { app } from "../util/firebase";
+import getUser from "../util/getUser";
 
 const db = getFirestore(app);
 
@@ -15,16 +16,19 @@ export default function SubmissionScreen({ route }) {
   const [text, setText] = useState<string>("");
 
   const handleSubmit = () => {
-    // Add a new document in collection "posts"
-    addToCollection("posts", {
-      content: text,
-      author: user?.uid,
-      comments: [],
-      likes: [],
-      question: question.id,
-      // timestamp:
+    getUser(user).then((userData) => {
+      console.log(userData)
+      // Add a new document in collection "posts"
+      addToCollection("posts", {
+        content: text,
+        author: userData?.userId,
+        comments: [],
+        likes: [],
+        question: question.id,
+        // timestamp:
+      });
+      navigation.navigate("Feed");
     });
-    navigation.navigate("Feed");
   };
 
   return (
