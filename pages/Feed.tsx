@@ -10,7 +10,6 @@ import { app } from "../util/firebase";
 import PostBox from "../components/PostBox";
 import { RefreshControl } from "react-native-gesture-handler";
 import { AuthContext } from "../navigation/AuthNavigator";
-import fetchFromCollection from "../util/fetchFromCollection";
 import getUser from "../util/getUser";
 
 const db = getFirestore(app);
@@ -51,8 +50,9 @@ export default function Feed({}) {
           });
 
           const newPosts = postsData.filter((post) => {
+            console.log(post.post.author, userId)
             return (
-              post.post.author.id == userId ||
+              post.post.author == userId ||
               friendsData.indexOf(post.post.author.id) !== -1
             );
           });
@@ -76,13 +76,17 @@ export default function Feed({}) {
       }
     >
       <View style={styles.container}>
-        {posts.map((postInfo, key) => (
-          <PostBox
-            key={key}
-            post={postInfo.post}
-            postId={postInfo.id}
-          ></PostBox>
-        ))}
+        {posts.length > 0 ? (
+          posts.map((postInfo, key) => (
+            <PostBox
+              key={key}
+              post={postInfo.post}
+              postId={postInfo.id}
+            ></PostBox>
+          ))
+        ) : (
+          <Text>Leave Your Thoughts At The Table!</Text>
+        )}
       </View>
     </ScrollView>
   );
