@@ -1,9 +1,5 @@
 import {
   collection,
-  doc,
-  DocumentData,
-  DocumentReference,
-  getDoc,
   getDocs,
   getFirestore,
   query,
@@ -13,7 +9,6 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, RefreshControl } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { CommentModal } from "../components/Modal";
-import fetchFromCollection from "../util/fetchFromCollection";
 import { app } from "../util/firebase";
 import { CommentObject, User } from "../util/types";
 
@@ -73,7 +68,7 @@ export default function PostScreen({ route }) {
           </View>
         );
       })}
-      <CommentModal post={post} postId={postId} />
+      <CommentModal post={post} postId={postId} onSubmit={getComments} />
     </ScrollView>
   );
 }

@@ -17,7 +17,7 @@ import { CommentObject } from "../util/types";
 
 const db = getFirestore(app);
 
-export const CommentModal = ({ post, postId }) => {
+export const CommentModal = ({ post, postId, onSubmit }) => {
   const user = useContext(AuthContext);
   const [modalVisible, setModalVisible] = useState(false);
   const [text, setText] = useState<string>("");
@@ -33,6 +33,7 @@ export const CommentModal = ({ post, postId }) => {
       };
       addToCollection("comments", comment);
       setModalVisible(false);
+      onSubmit();
     }
   };
 
