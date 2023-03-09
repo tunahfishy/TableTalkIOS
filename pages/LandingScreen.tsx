@@ -2,8 +2,6 @@ import * as React from "react";
 import {
   View,
   Text,
-  TextInput,
-  Button,
   StyleSheet,
   Pressable,
 } from "react-native";
@@ -18,13 +16,13 @@ export default function LandingScreen({}) {
       <View style={styles.buttonContainer}>
         <Pressable
           style={styles.button}
-          onPress={() => navigation.navigate("Login")}
+          onPress={() => navigation.navigate("Login" as never)}
         >
           <Text style={styles.buttonText}>{"Log In"}</Text>
         </Pressable>
         <Pressable
           style={styles.button}
-          onPress={() => navigation.navigate("Sign Up")}
+          onPress={() => navigation.navigate("Sign Up" as never)}
         >
           <Text style={styles.buttonText}>{"Sign Up"}</Text>
         </Pressable>

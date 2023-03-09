@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import {
   Button,
   View,
@@ -28,7 +28,7 @@ export default function CreateProfile({}) {
           friends: [],
         };
         addToCollection("users/", userObject);
-        navigation.navigate("Home");
+        navigation.navigate("Home" as never);
       })
       .catch((error) => {
         console.log(error.message);
@@ -61,7 +61,7 @@ export default function CreateProfile({}) {
       <Pressable style={styles.button} onPress={handleSignUp}>
         <Text style={styles.buttonText}>{"Create Profile!"}</Text>
       </Pressable>
-      <Pressable onPress={() => navigation.navigate("Login")}>
+      <Pressable onPress={() => navigation.navigate("Login" as never)}>
         <Text style={styles.signUp}>{"Log In"}</Text>
       </Pressable>
     </View>

@@ -1,16 +1,13 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { createRef, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
 import { auth } from "../util/firebase";
-import { AuthContext } from "../navigation/AuthNavigator";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 import { app } from "../util/firebase";
 import { Question } from "../util/types";
 
 export default function HomeScreen({}) {
   const navigation = useNavigation();
-  const user = useContext(AuthContext);
   const [questions, setQuestions] = useState<Question[]>([]);
 
   async function logOut() {
@@ -40,14 +37,14 @@ export default function HomeScreen({}) {
       <Button
         title="Question Of The Day"
         onPress={() =>
-          navigation.navigate("Submission", { question: questions[0] })
+          navigation.navigate("Submission" as never, { question: questions[0] } as never)
         }
       />
       <Button
         title="Go to About"
-        onPress={() => navigation.navigate("About")}
+        onPress={() => navigation.navigate("About" as never)}
       />
-      <Button title="Go to Feed" onPress={() => navigation.navigate("Feed")} />
+      <Button title="Go to Feed" onPress={() => navigation.navigate("Feed" as never)} />
       <TouchableOpacity style={styles.button} onPress={logOut}>
         <Text style={styles.buttonText}>Sign out 🤷</Text>
       </TouchableOpacity>

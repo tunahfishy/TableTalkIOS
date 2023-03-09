@@ -3,7 +3,6 @@ import {
   View,
   Text,
   TextInput,
-  Button,
   StyleSheet,
   Pressable,
 } from "react-native";
@@ -48,7 +47,7 @@ export default function AuthScreen({}) {
       <Pressable style={styles.button} onPress={handleSignIn}>
         <Text style={styles.buttonText}>{"Log In"}</Text>
       </Pressable>
-      <Pressable onPress={() => navigation.navigate("Sign Up")}>
+      <Pressable onPress={() => navigation.navigate("Sign Up" as never)}>
         <Text style={styles.signUp}>{"Sign Up"}</Text>
       </Pressable>
     </View>

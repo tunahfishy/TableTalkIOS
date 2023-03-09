@@ -3,7 +3,6 @@ import { deleteDoc, doc, DocumentReference } from "firebase/firestore";
 import React, { Component, useEffect, useState } from "react";
 import { Text, StyleSheet, TouchableOpacity, Button } from "react-native";
 import fetchFromCollection from "../util/fetchFromCollection";
-import { db } from "../util/firebase";
 import { Question, User } from "../util/types";
 
 export default function PostBox({ post, postId, userId }) {
@@ -41,13 +40,13 @@ export default function PostBox({ post, postId, userId }) {
     <TouchableOpacity
       style={styles.container}
       onPress={() => {
-        navigation.navigate("Post", {
+        navigation.navigate("Post" as never, {
           post: post,
           postId: postId,
           question: question,
           author: author,
           userId: userId,
-        });
+        } as never);
       }}
     >
       <Text style={styles.text}>{post.content}</Text>
