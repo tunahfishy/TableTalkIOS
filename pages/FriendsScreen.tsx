@@ -82,7 +82,9 @@ export default function FriendsScreen({}) {
             ></ProfileBox>
           ))
         ) : (
-          <Text>No Friends To Add!</Text>
+          <View style={styles.empty}>
+            <Text style={styles.announcement}>No Friends To Add!</Text>
+          </View>
         )}
       </View>
     </ScrollView>
@@ -100,4 +102,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "stretch",
   },
+  empty: {
+    alignItems: "center",
+  },
+  announcement: {
+    fontSize: 16,
+  }
 });

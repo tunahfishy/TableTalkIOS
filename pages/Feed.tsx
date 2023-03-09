@@ -83,7 +83,11 @@ export default function Feed({}) {
             ></PostBox>
           ))
         ) : (
-          <Text>Leave Your Thoughts At The Table!</Text>
+          <View style={styles.empty}>
+            <Text style={styles.announcement}>
+              Leave Your Thoughts At The Table!
+            </Text>
+          </View>
         )}
       </View>
     </ScrollView>
@@ -100,5 +104,11 @@ const styles = StyleSheet.create({
     marginTop: 30,
     justifyContent: "center",
     alignItems: "stretch",
+  },
+  empty: {
+    alignItems: "center",
+  },
+  announcement: {
+    fontSize: 16,
   },
 });
