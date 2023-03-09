@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   body: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: "#ADD8E6",
+    backgroundColor: "#D8CCC4",
   },
   container: {
     justifyContent: "center",
@@ -91,8 +91,12 @@ const styles = StyleSheet.create({
     padding: 26,
     minHeight: 100,
     margin: 16,
-    borderRadius: 16,
     backgroundColor: "white",
+    borderRadius: 8,
+    shadowColor: "#171717",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
   question: {
     fontStyle: "italic",

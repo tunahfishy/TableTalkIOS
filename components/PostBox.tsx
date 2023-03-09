@@ -40,13 +40,16 @@ export default function PostBox({ post, postId, userId }) {
     <TouchableOpacity
       style={styles.container}
       onPress={() => {
-        navigation.navigate("Post" as never, {
-          post: post,
-          postId: postId,
-          question: question,
-          author: author,
-          userId: userId,
-        } as never);
+        navigation.navigate(
+          "Post" as never,
+          {
+            post: post,
+            postId: postId,
+            question: question,
+            author: author,
+            userId: userId,
+          } as never
+        );
       }}
     >
       <Text style={styles.text}>{post.content}</Text>
@@ -64,18 +67,24 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: "#ffffff",
     borderWidth: 2,
     padding: 16,
     minHeight: 125,
     margin: 16,
-    borderRadius: 16,
+    borderRadius: 8,
+    shadowColor: "#171717",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
   text: {
     fontSize: 22,
     fontWeight: "300",
+    fontFamily: "AppleSDGothicNeo-Light",
   },
   author: {
     fontSize: 16,
+    fontFamily: 'AppleSDGothicNeo-Light'
   },
 });

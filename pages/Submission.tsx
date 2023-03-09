@@ -26,7 +26,7 @@ export default function SubmissionScreen({ route }) {
         question: question.id,
         // timestamp: serverTimestamp()
       });
-      navigation.navigate("Feed");
+      navigation.navigate("Feed" as never);
     });
   };
 
@@ -47,12 +47,8 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#ADD8E6",
-    borderWidth: 2,
-    padding: 16,
-    minHeight: 100,
-    margin: 16,
-    borderRadius: 16,
+    backgroundColor: "#D8CCC4",
+    flex: 1,
   },
   text: {
     fontSize: 22,
@@ -68,5 +64,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 16,
     padding: 8,
+    // backgroundColor: "white",
   },
 });

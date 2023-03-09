@@ -70,7 +70,7 @@ export const CommentModal = ({ post, postId, onSubmit }) => {
         style={[styles.button, styles.buttonOpen]}
         onPress={() => setModalVisible(true)}
       >
-        <Text style={styles.textStyle}>Show Modal</Text>
+        <Text style={styles.textStyle}>Comment</Text>
       </Pressable>
     </View>
   );
@@ -110,10 +110,10 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   buttonOpen: {
-    backgroundColor: "#F194FF",
+    backgroundColor: "#583C2C",
   },
   buttonClose: {
-    backgroundColor: "#2196F3",
+    backgroundColor: "#583C2C",
   },
   textStyle: {
     color: "white",

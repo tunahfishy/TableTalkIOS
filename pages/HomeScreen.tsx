@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#ADD8E6",
+    backgroundColor: "#D8CCC4",
   },
   title: {
     marginTop: 20,
@@ -80,15 +80,5 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "white",
     fontSize: 18,
-  },
-  input: {
-    width: 200,
-    height: 70,
-    borderWidth: 1,
-    borderColor: "#555",
-    borderRadius: 8,
-    textAlign: "center",
-    fontSize: 16,
-    padding: 8,
   },
 });

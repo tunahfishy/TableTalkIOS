@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
   body: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: "#ADD8E6",
+    backgroundColor: "#D8CCC4",
   },
   container: {
     marginTop: 30,
