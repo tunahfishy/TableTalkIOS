@@ -10,7 +10,15 @@ const Stack = createStackNavigator();
 export default function SignOutStack() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={{
+          title: "",
+          headerStyle: {
+            backgroundColor: "#D8CCC4",
+          },
+          headerTintColor: "black",
+        }}
+      >
         <Stack.Screen name="Landing" component={LandingScreen} />
         <Stack.Screen name="Login" component={AuthScreen} />
         <Stack.Screen name="Sign Up" component={CreateProfile} />

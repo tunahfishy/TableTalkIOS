@@ -5,7 +5,7 @@ import {
   DocumentReference,
 } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Pressable } from "react-native";
 import { app } from "../util/firebase";
 import PostBox from "../components/PostBox";
 import { RefreshControl } from "react-native-gesture-handler";
@@ -41,7 +41,7 @@ export default function Feed({}) {
       getUser(user).then((userData) => {
         if (userData) {
           const { userId, userObject } = userData;
-          setUser(userId)
+          setUser(userId);
           const userFriends = userObject.friends;
 
           const friendsData: DocumentReference[] = [];

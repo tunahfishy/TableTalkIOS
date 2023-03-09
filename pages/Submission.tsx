@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
-import { serverTimestamp, getFirestore } from "firebase/firestore";
-import React, { Component, useContext, useState } from "react";
+import { getFirestore } from "firebase/firestore";
+import React, { useContext, useState } from "react";
 import { Button, View, Text, StyleSheet, TextInput } from "react-native";
 import { AuthContext } from "../navigation/AuthNavigator";
 import addToCollection from "../util/addToCollection";
