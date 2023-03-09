@@ -1,7 +1,14 @@
 import { useNavigation } from "@react-navigation/native";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { Component, useState } from "react";
-import { Button, View, Text, StyleSheet, TextInput } from "react-native";
+import {
+  Button,
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  Pressable,
+} from "react-native";
 import addToCollection from "../util/addToCollection";
 import { auth } from "../util/firebase";
 import { User } from "../util/types";
@@ -31,31 +38,32 @@ export default function CreateProfile({}) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Table Talk</Text>
-      <Text style={styles.text}>Email</Text>
+      <Text style={styles.title}>Create Profile</Text>
       <TextInput
         style={styles.input}
         value={email}
+        placeholder={"Email"}
         onChangeText={(text) => setEmail(text)}
       />
-      <Text style={styles.text}>Password</Text>
-      <TextInput
-        style={styles.input}
-        value={password}
-        onChangeText={(text) => setPassword(text)}
-        secureTextEntry={true}
-      />
-      <Text style={styles.text}>Name</Text>
       <TextInput
         style={styles.input}
         value={name}
+        placeholder={"Name"}
         onChangeText={(name) => setName(name)}
       />
-      <Button title="Create Profile" onPress={handleSignUp} />
-      <Button
-        title="Sign In"
-        onPress={() => navigation.navigate("Login")}
+      <TextInput
+        style={styles.input}
+        value={password}
+        placeholder={"Password"}
+        onChangeText={(text) => setPassword(text)}
+        secureTextEntry={true}
       />
+      <Pressable style={styles.button} onPress={handleSignUp}>
+        <Text style={styles.buttonText}>{"Create Profile!"}</Text>
+      </Pressable>
+      <Pressable onPress={() => navigation.navigate("Login")}>
+        <Text style={styles.signUp}>{"Log In"}</Text>
+      </Pressable>
     </View>
   );
 }
@@ -63,18 +71,32 @@ export default function CreateProfile({}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#ADD8E6",
+    backgroundColor: "#D8CCC4",
     alignItems: "center",
     justifyContent: "center",
   },
-  body: {
-    flex: 1,
-    backgroundColor: "#ADD8E6",
-    flexDirection: "column",
+  title: {
+    color: "#3E2A1E",
+    fontSize: 38,
+    paddingBottom: 16,
   },
-  text: {
-    color: "#000000",
-    fontSize: 21,
+  buttonContainer: {
+    flex: 1,
+    justifyContent: "space-around",
+    maxHeight: 200,
+  },
+  button: {
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 12,
+    width: 200,
+    borderRadius: 32,
+    elevation: 3,
+    backgroundColor: "#583C2C",
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 18,
     marginBottom: 10,
     marginTop: 10,
   },
@@ -85,6 +107,13 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     textAlign: "center",
     fontSize: 16,
-    padding: 8,
+    padding: 12,
+    margin: 12,
+  },
+  signUp: {
+    color: "#583C2C",
+    textDecorationLine: "underline",
+    fontSize: 20,
+    paddingTop: 10,
   },
 });

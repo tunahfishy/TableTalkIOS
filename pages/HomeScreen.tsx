@@ -11,7 +11,7 @@ import { Question } from "../util/types";
 export default function HomeScreen({}) {
   const navigation = useNavigation();
   const user = useContext(AuthContext);
-  const [questions, setQuestions] = useState<Question[]>([])
+  const [questions, setQuestions] = useState<Question[]>([]);
 
   async function logOut() {
     try {
@@ -23,7 +23,7 @@ export default function HomeScreen({}) {
 
   const db = getFirestore(app);
   const questionsRef = collection(db, "questions");
-  
+
   useEffect(() => {
     getDocs(questionsRef).then((querySnapshot) => {
       const questionsData: Question[] = [];
@@ -39,7 +39,9 @@ export default function HomeScreen({}) {
       <Text style={styles.title}>Welcome to the table!</Text>
       <Button
         title="Question Of The Day"
-        onPress={() => navigation.navigate("Submission", { question: questions[0]})}
+        onPress={() =>
+          navigation.navigate("Submission", { question: questions[0] })
+        }
       />
       <Button
         title="Go to About"
