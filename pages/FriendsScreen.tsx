@@ -78,6 +78,7 @@ export default function FriendsScreen({}) {
               key={key}
               profileInfo={nonFriend}
               userId={userId}
+              onAdd={getFriends}
             ></ProfileBox>
           ))
         ) : (

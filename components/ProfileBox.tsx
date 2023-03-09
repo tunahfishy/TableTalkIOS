@@ -9,7 +9,7 @@ import React, { useEffect, useState } from "react";
 import { Text, StyleSheet, TouchableOpacity, Button } from "react-native";
 import { db } from "../util/firebase";
 
-export default function ProfileBox({ profileInfo, userId }) {
+export default function ProfileBox({ profileInfo, userId, onAdd }) {
   const [currUserRef, setCurrUserRef] = useState<DocumentReference>();
   const [userRef, setUserRef] = useState<DocumentReference>();
   const { userInfo, id } = profileInfo;
@@ -19,7 +19,6 @@ export default function ProfileBox({ profileInfo, userId }) {
     setUserRef(userRef);
     const currUserRef = doc(db, "users/" + userId);
     setCurrUserRef(currUserRef);
-    console.log(currUserRef, userRef);
   }, []);
 
   const addFriend = () => {
@@ -32,6 +31,7 @@ export default function ProfileBox({ profileInfo, userId }) {
       });
     }
     alert("added friend!");
+    onAdd();
   };
 
   return (

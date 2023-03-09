@@ -11,12 +11,14 @@ import { ScrollView } from "react-native-gesture-handler";
 import { CommentModal } from "../components/Modal";
 import { app } from "../util/firebase";
 import { CommentObject, User } from "../util/types";
+import Comment from "../components/Comment";
 
 const db = getFirestore(app);
 
 export interface CommentDataObject {
   data: CommentObject;
   author: User;
+  id: string;
 }
 
 export default function PostScreen({ route }) {
@@ -37,7 +39,7 @@ export default function PostScreen({ route }) {
       const commentsData: CommentDataObject[] = [];
       commentsSnapshot.forEach((doc: any) => {
         const data: CommentObject = doc.data();
-        commentsData.push({ data, author });
+        commentsData.push({ data, author, id: doc.id });
       });
       setComments(commentsData);
     });
@@ -62,10 +64,13 @@ export default function PostScreen({ route }) {
       </View>
       {comments.map((commentObject, key) => {
         return (
-          <View style={styles.comments} key={key}>
-            <Text>{commentObject.data.text}</Text>
-            <Text>{commentObject.author.name}</Text>
-          </View>
+          <Comment
+            key={key}
+            data={commentObject.data}
+            author={commentObject.author}
+            commentId={commentObject.id}
+            onDelete={getComments}
+          />
         );
       })}
       <CommentModal post={post} postId={postId} onSubmit={getComments} />
@@ -99,15 +104,5 @@ const styles = StyleSheet.create({
     fontWeight: "300",
     paddingTop: 12,
     paddingBottom: 12,
-  },
-  comments: {
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "white",
-    borderWidth: 1,
-    padding: 26,
-    minHeight: 100,
-    margin: 16,
-    borderRadius: 16,
   },
 });
