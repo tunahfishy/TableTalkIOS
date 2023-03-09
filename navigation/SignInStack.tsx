@@ -1,7 +1,6 @@
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import HomeScreen from "../pages/HomeScreen";
 import AboutScreen from "../pages/About";
 import Feed from "../pages/Feed";
 import PostScreen from "../pages/PostScreen";
@@ -13,6 +12,7 @@ import { useEffect, useState } from "react";
 import { Question } from "../util/types";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 import { app } from "../util/firebase";
+import ProfileScreen from "../pages/ProfileScreen";
 
 const Stack = createStackNavigator();
 
@@ -43,8 +43,6 @@ export default function SignInStack() {
           headerTintColor: "black",
         }}
       >
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="About" component={AboutScreen} />
         <Stack.Screen
           name="Feed"
           component={Feed}
@@ -52,7 +50,12 @@ export default function SignInStack() {
             title: "Table Talk",
             headerLeft: () => (
               <Pressable
-              onPress={() => navigation.navigate("Submission" as never, { question: questions[0] } as never)}
+                onPress={() =>
+                  navigation.navigate(
+                    "Submission" as never,
+                    { question: questions[0] } as never
+                  )
+                }
               >
                 <MaterialCommunityIcons
                   name="book"
@@ -64,7 +67,7 @@ export default function SignInStack() {
             ),
             headerRight: () => (
               <Pressable
-                onPress={() => navigation.navigate("Friends" as never)}
+                onPress={() => navigation.navigate("Profile" as never)}
               >
                 <MaterialCommunityIcons
                   name="account"
@@ -78,7 +81,25 @@ export default function SignInStack() {
         />
         <Stack.Screen name="Post" component={PostScreen} />
         <Stack.Screen name="Submission" component={SubmissionScreen} />
+        <Stack.Screen name="Profile" component={ProfileScreen}
+        options={({ navigation }) => ({
+          title: "Table Talk",
+          headerRight: () => (
+            <Pressable
+              onPress={() => navigation.navigate("Friends" as never)}
+            >
+              <MaterialCommunityIcons
+                name="account-sync"
+                style={styles.header}
+                size={32}
+                color={"#583C2C"}
+              />
+            </Pressable>
+          ),
+        })}
+         />
         <Stack.Screen name="Friends" component={FriendsScreen} />
+        <Stack.Screen name="About" component={AboutScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

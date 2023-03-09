@@ -2,7 +2,6 @@ import { useNavigation } from "@react-navigation/native";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import {
-  Button,
   View,
   Text,
   StyleSheet,
