@@ -9,10 +9,28 @@ import SubmissionScreen from "../pages/Submission";
 import FriendsScreen from "../pages/FriendsScreen";
 import { Text, StyleSheet, Pressable, Button } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useEffect, useState } from "react";
+import { Question } from "../util/types";
+import { collection, getDocs, getFirestore } from "firebase/firestore";
+import { app } from "../util/firebase";
 
 const Stack = createStackNavigator();
 
 export default function SignInStack() {
+  const db = getFirestore(app);
+  const questionsRef = collection(db, "questions");
+  const [questions, setQuestions] = useState<Question[]>([]);
+
+  useEffect(() => {
+    getDocs(questionsRef).then((querySnapshot) => {
+      const questionsData: Question[] = [];
+      querySnapshot.forEach((doc: any) => {
+        questionsData.push({ id: doc.id, data: doc.data() });
+      });
+      setQuestions(questionsData);
+    });
+  }, []);
+
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -34,7 +52,7 @@ export default function SignInStack() {
             title: "Table Talk",
             headerLeft: () => (
               <Pressable
-              // onPress={() => navigation.navigate("Submission" as never)}
+              onPress={() => navigation.navigate("Submission" as never, { question: questions[0] } as never)}
               >
                 <MaterialCommunityIcons
                   name="book"
