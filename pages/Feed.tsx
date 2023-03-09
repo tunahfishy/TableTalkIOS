@@ -23,7 +23,7 @@ export default function Feed({}) {
   const [posts, setPosts] = useState<PostInfo[]>([]);
   const postsRef = collection(db, "posts");
   const [refreshing, setRefreshing] = useState<boolean>(false);
-  const [user, setUser] = useState(useContext(AuthContext));
+  const user = useContext(AuthContext);
 
   const onRefresh = () => {
     setRefreshing(true);
@@ -41,7 +41,6 @@ export default function Feed({}) {
       getUser(user).then((userData) => {
         if (userData) {
           const { userId, userObject } = userData;
-          setUser(userId);
           const userFriends = userObject.friends;
 
           const friendsData: DocumentReference[] = [];
@@ -49,7 +48,6 @@ export default function Feed({}) {
           userFriends?.forEach((friend) => {
             friendsData.push(friend);
           });
-
           const newPosts = postsData.filter((post) => {
             return (
               post.post.author == userId ||
@@ -64,6 +62,7 @@ export default function Feed({}) {
 
   useEffect(() => {
     getPosts();
+    console.log("getting posts");
   }, []);
 
   return (
