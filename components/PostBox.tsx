@@ -1,13 +1,16 @@
 import { useNavigation } from "@react-navigation/native";
+import { deleteDoc, doc, DocumentReference } from "firebase/firestore";
 import React, { Component, useEffect, useState } from "react";
-import { Text, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, StyleSheet, TouchableOpacity, Button } from "react-native";
 import fetchFromCollection from "../util/fetchFromCollection";
+import { db } from "../util/firebase";
 import { Question, User } from "../util/types";
 
-export default function PostBox({ post, postId }) {
+export default function PostBox({ post, postId, userId }) {
   const navigation = useNavigation();
   const [question, setQuestion] = useState<Question>();
   const [author, setAuthor] = useState<User>();
+  // const [authorId, setAuthorId] = useState<string>();
 
   useEffect(() => {
     const questionInfo = fetchFromCollection("questions/" + post.question.path);
@@ -18,8 +21,21 @@ export default function PostBox({ post, postId }) {
     const authorInfo = fetchFromCollection("users/" + post.author);
     authorInfo.then((authorInfo) => {
       setAuthor(authorInfo.data() as User);
+      // setAuthorId(authorInfo.id);
     });
   }, []);
+
+  // const deletePost = () => {
+  //   const commentRef: DocumentReference = doc(db, "comments/" + postId);
+  //   deleteDoc(commentRef)
+  //     .then(() => {
+  //       console.log("Entire Document has been deleted successfully.");
+  //       // onDelete(); delete post, refresh, and delete all comments
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
   return (
     <TouchableOpacity
@@ -30,11 +46,17 @@ export default function PostBox({ post, postId }) {
           postId: postId,
           question: question,
           author: author,
+          userId: userId,
         });
       }}
     >
       <Text style={styles.text}>{post.content}</Text>
       <Text style={styles.author}>{author?.name}</Text>
+      {/* {authorId == userId ? (
+        <Button title={"delete"} onPress={deletePost} />
+      ) : (
+        <></>
+      )} */}
     </TouchableOpacity>
   );
 }

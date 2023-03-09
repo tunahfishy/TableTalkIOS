@@ -23,7 +23,7 @@ export default function Feed({}) {
   const [posts, setPosts] = useState<PostInfo[]>([]);
   const postsRef = collection(db, "posts");
   const [refreshing, setRefreshing] = useState<boolean>(false);
-  const user = useContext(AuthContext);
+  const [user, setUser] = useState(useContext(AuthContext));
 
   const onRefresh = () => {
     setRefreshing(true);
@@ -41,6 +41,7 @@ export default function Feed({}) {
       getUser(user).then((userData) => {
         if (userData) {
           const { userId, userObject } = userData;
+          setUser(userId)
           const userFriends = userObject.friends;
 
           const friendsData: DocumentReference[] = [];
@@ -79,6 +80,7 @@ export default function Feed({}) {
               key={key}
               post={postInfo.post}
               postId={postInfo.id}
+              userId={user}
             ></PostBox>
           ))
         ) : (
